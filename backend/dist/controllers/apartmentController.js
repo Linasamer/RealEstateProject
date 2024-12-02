@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createNewApartment = exports.fetchApartmentById = exports.fetchAllApartments = void 0;
+exports.deleteApartment = exports.createNewApartment = exports.fetchApartmentById = exports.fetchAllApartments = void 0;
 const apartmentModel_1 = __importDefault(require("../models/apartmentModel"));
 // Get all apartments
 const fetchAllApartments = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -59,3 +59,18 @@ const createNewApartment = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.createNewApartment = createNewApartment;
+/// Correct syntax for async function
+const deleteApartment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const apartment = yield apartmentModel_1.default.findByPk(req.params.id);
+        if (!apartment) {
+            return res.status(404).json({ message: 'Apartment not found' });
+        }
+        yield apartment.destroy(); // Delete the apartment from the database
+        res.status(200).json({ message: 'Apartment deleted successfully' });
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Error deleting apartment', error });
+    }
+});
+exports.deleteApartment = deleteApartment;

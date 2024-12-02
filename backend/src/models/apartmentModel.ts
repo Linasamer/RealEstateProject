@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import sequelize from '../database';
+import sequelize from '../database'; // Make sure this is correctly set up
 
 class Apartment extends Model {}
 
@@ -7,7 +7,7 @@ Apartment.init(
   {
     id: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      defaultValue: DataTypes.UUIDV4, // Auto-generating UUID
       primaryKey: true,
     },
     name: {
@@ -23,12 +23,13 @@ Apartment.init(
       allowNull: false,
     },
     description: {
-      type: DataTypes.TEXT,
+      type: DataTypes.TEXT, // TEXT allows for longer descriptions
     },
   },
   {
-    sequelize,
+    sequelize, // Make sure your sequelize instance is correctly passed
     modelName: 'Apartment',
+    timestamps: true, // Enable automatic timestamps (createdAt and updatedAt)
   }
 );
 

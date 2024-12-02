@@ -16,6 +16,7 @@ services:
       - db
     networks:
       - app-network
+    command: sh -c "npx knex migrate:latest && npm run start" # Run migrations before starting the app
 
   frontend:
     build:
